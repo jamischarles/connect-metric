@@ -6,6 +6,7 @@ var app = connect();
 
 app.use("/normal", require("..")());
 app.use("/parent", require("..")({testing: 123}));
+app.use("/heroku", require("..")(null, {request_id: "heroku-request-id"}));
 
 app.use("/user", function (req, res, next) {
   req.user = {
@@ -59,6 +60,19 @@ describe("req-metric", function(){
         str.should.match(/val=456/);
         str.should.match(/testing=123/);
         str.should.not.match(/session=/);
+        done();
+      });
+  });
+
+  it("should override the request_id header", function(done) {
+    request(app)
+      .get("/heroku")
+      .set("heroku-request-id", "1237")
+      .end(function(err, res) {
+        if(err) done(err);
+        str.should.match(/metric=response/);
+        str.should.match(/request_id=1237/);
+        str.should.match(/val=456/);
         done();
       });
   });
