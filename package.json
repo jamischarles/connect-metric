@@ -1,14 +1,14 @@
 {
-  "name": "req-metric",
+  "name": "connect-metric",
   "version": "0.1.0",
-  "description": "Middleware that exposes req.metric for logging in the context of a user",
+  "description": "Middleware that exposes metric for logging in the context of a user",
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/CamShaft/req-metric.git"
+    "url": "https://github.com/CamShaft/connect-metric.git"
   },
   "author": "Cameron Bytheway <cameron@nujii.com>",
   "license": "MIT",
