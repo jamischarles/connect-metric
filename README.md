@@ -1,4 +1,4 @@
-connect-metric
+connect-metric [![Build Status](https://travis-ci.org/CamShaft/connect-metric.png?branch=master)](https://travis-ci.org/CamShaft/connect-metric)
 ==============
 
 Middleware that exposes [metric](https://github.com/CamShaft/metric-log) for logging in the context of a request
