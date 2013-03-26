@@ -32,10 +32,14 @@ module.exports = function(context, options) {
 };
 
 function userSession (user) {
-  if(!user) return null;
+  if(!user || !user.id) return null;
+
   var hash = crypto.createHash('md5');
-  hash.update(""+user.id || "");
-  var time = new Date - 0;
+  // Create a session id by hashing the user.id
+  hash.update(""+user.id);
+  // And the day
+  var time = (new Date - 0)/1000;
   hash.update(""+(time - (time % TIME_DAY)));
+  // Formatted as hex
   return hash.digest('hex');
 }
