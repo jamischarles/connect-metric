@@ -17,7 +17,7 @@ module.exports = function(context, options) {
 
   var root = metric.context(context);
 
-  return function metricLogger(req, res, next) {
+  return function metrics(req, res, next) {
 
     var session = userSession(req.user)
       , data = {};
