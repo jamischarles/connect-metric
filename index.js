@@ -19,12 +19,10 @@ module.exports = function(context, options) {
 
   return function metricLogger(req, res, next) {
 
-    var session = userSession(req.user);
+    var session = userSession(req.user)
+      , data = {};
 
-    var data = {
-      request_id: req.headers[requestIDHeader]
-    };
-
+    if(req.headers[requestIDHeader]) data.request_id = req.headers[requestIDHeader]
     if(session) data.session = session;
 
     req.metric = metric.context(data).use(root);
