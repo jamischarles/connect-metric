@@ -41,7 +41,7 @@ describe("req-metric", function(){
       .set("x-request-id", "1234")
       .end(function(err, res) {
         if(err) done(err);
-        str.should.match(/metric=response/);
+        str.should.match(/measure=response/);
         str.should.match(/request_id=1234/);
         str.should.match(/val=456/);
         str.should.not.match(/session=/);
@@ -55,7 +55,7 @@ describe("req-metric", function(){
       .set("x-request-id", "1235")
       .end(function(err, res) {
         if(err) done(err);
-        str.should.match(/metric=response/);
+        str.should.match(/measure=response/);
         str.should.match(/request_id=1235/);
         str.should.match(/val=456/);
         str.should.match(/testing=123/);
@@ -70,7 +70,7 @@ describe("req-metric", function(){
       .set("heroku-request-id", "1237")
       .end(function(err, res) {
         if(err) done(err);
-        str.should.match(/metric=response/);
+        str.should.match(/measure=response/);
         str.should.match(/request_id=1237/);
         str.should.match(/val=456/);
         done();
@@ -83,7 +83,7 @@ describe("req-metric", function(){
       .set("x-request-id", "1236")
       .end(function(err, res) {
         if(err) done(err);
-        str.should.match(/metric=response/);
+        str.should.match(/measure=response/);
         str.should.match(/request_id=1236/);
         str.should.match(/val=456/);
         str.should.match(/session=/);
