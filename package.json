@@ -1,6 +1,6 @@
 {
   "name": "connect-metric",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Middleware that exposes metric for logging in the context of a user",
   "main": "index.js",
   "scripts": {
