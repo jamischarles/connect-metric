@@ -13,32 +13,36 @@ module.exports = function(context, options) {
   context = context || {};
   options = options || {};
 
-  var requestIDHeader = options.request_id || 'x-request-id';
-
-  var root = metric.context(context);
+  var root = metric.context(context)
+    , requestIDHeader = options.request_id || 'x-request-id';
 
   return function metrics(req, res, next) {
+    var data = {};
 
-    var session = userSession(req.user)
-      , data = {};
-
+    // add the request id to the context
     if(req.headers[requestIDHeader]) data.request_id = req.headers[requestIDHeader]
-    if(session) data.session = session;
 
+    // Create a new context for the request
     req.metric = metric.context(data).use(root);
+
+    // Allow the app to "login" a user with a pseudo-session
+    req.metric.login = function(id) {
+      data.session = userSession(id || (req.user || {}).id);
+      return this;
+    };
 
     next();
   }
 };
 
-function userSession (user) {
-  if(!user || !user.id) return null;
+function userSession (id) {
+  if(!id) return null;
 
   var hash = crypto.createHash('md5');
-  // Create a session id by hashing the user.id
-  hash.update(""+user.id);
+  // Create a session id by hashing the id
+  hash.update(""+id);
   // And the day
-  var time = (new Date - 0)/1000;
+  var time = Date.now()/1000;
   hash.update(""+(time - (time % TIME_DAY)));
   // Formatted as hex
   return hash.digest('hex');

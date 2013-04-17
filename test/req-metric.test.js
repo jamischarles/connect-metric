@@ -1,4 +1,5 @@
 var should = require("should")
+  , log = require("metric-log")
   , connect = require("connect")
   , request = require("supertest");
 
@@ -8,13 +9,14 @@ app.use("/normal", require("..")());
 app.use("/parent", require("..")({testing: 123}));
 app.use("/heroku", require("..")(null, {request_id: "heroku-request-id"}));
 
+app.use("/user", require("..")());
 app.use("/user", function (req, res, next) {
   req.user = {
     id: "testing123"
   };
+  req.metric.login(req.user.id);
   next();
 });
-app.use("/user", require("..")());
 
 app.use(function(req, res, next) {
   req.metric("response", 456);
@@ -22,17 +24,12 @@ app.use(function(req, res, next) {
 });
 
 describe("req-metric", function(){
-  var log, str;
+  var str;
 
-  beforeEach(function() {
-    log = console.log;
-    console.log = function(fmt) {
-      str = fmt;
+  before(function() {
+    log.log = function(out) {
+      str = out;
     };
-  });
-
-  afterEach(function() {
-    console.log = log;
   });
 
   it("should print a metric in the context of a request", function(done) {
