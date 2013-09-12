@@ -15,7 +15,7 @@
   "readmeFilename": "README.md",
   "gitHead": "e74671764dbb7ee26c051d8d6ccb704c60fc843a",
   "dependencies": {
-    "metric-log": "~0.2.0"
+    "metric-log": "git+https://github.com/CamShaft/metric-log.git#e6b75376548164df678aa5d04f2fb2e751e74813"
   },
   "devDependencies": {
     "should": "~1.2.2",
