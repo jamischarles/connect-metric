@@ -13,7 +13,6 @@
   "author": "Cameron Bytheway <cameron@nujii.com>",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "gitHead": "e74671764dbb7ee26c051d8d6ccb704c60fc843a",
   "dependencies": {
     "metric-log": "git+https://github.com/jamischarles/metric-log.git#1.0.0"
   },
